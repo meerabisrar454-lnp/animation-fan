@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fan Speed Control</title>
+  <style>
+    body {
+      background: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 40px;
+    }
+
+    .buttons {
+      margin-bottom: 30px;
+    }
+
+    button {
+      padding: 10px 18px;
+      margin: 10px 5px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      background-color: white;
+      color: black;
+      box-shadow: 0 0 10px red, 0 0 20px cyan;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    button:hover {
+      background: #f0f0f0;
+      transform: scale(1.05);
+    }
+
+    .fan {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+      position: relative;
+      animation: spin 0s linear infinite;
+    }
+
+    .blade {
+      width: 80px;
+      height: 120px;
+      background: black;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 50% 50% 0 0;
+      transform-origin: bottom center;
+    }
+
+    .blade:nth-child(1) {
+      transform: rotate(0deg) translateY(-60px);
+    }
+
+    .blade:nth-child(2) {
+      transform: rotate(90deg) translateY(-60px);
+    }
+
+    .blade:nth-child(3) {
+      transform: rotate(180deg) translateY(-60px);
+    }
+
+    .blade:nth-child(4) {
+      transform: rotate(270deg) translateY(-60px);
+    }
+
+    .center-circle {
+      width: 40px;
+      height: 40px;
+      background: white;
+      border: 10px solid black;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="buttons">
+    <button onclick="setSpeed(0)">Stop</button>
+    <button onclick="setSpeed(1)">Low</button>
+    <button onclick="setSpeed(2)">Medium</button>
+    <button onclick="setSpeed(3)">High</button>
+  </div>
+
+  <div class="fan" id="fan">
+    <div class="blade"></div>
+    <div class="blade"></div>
+    <div class="blade"></div>
+    <div class="blade"></div>
+    <div class="center-circle"></div>
+  </div>
+
+  <script>
+    const fan = document.getElementById("fan");
+
+    function setSpeed(level) {
+      let speed = "0s";
+      if (level === 1) speed = "3s";       // Low
+      else if (level === 2) speed = "1.5s"; // Medium
+      else if (level === 3) speed = "0.5s"; // High
+
+      fan.style.animation = `spin ${speed} linear infinite`;
+    }
+  </script>
+
+</body>
+</html>
